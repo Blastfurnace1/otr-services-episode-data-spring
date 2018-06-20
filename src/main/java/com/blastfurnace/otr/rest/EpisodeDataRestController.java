@@ -17,20 +17,20 @@ import org.springframework.web.bind.annotation.RestController;
 import com.blastfurnace.otr.rest.adapter.EpisodeDataAdapter;
 import com.blastfurnace.otr.rest.request.QueryData;
 import com.blastfurnace.otr.rest.response.GenericRestResponse;
-import com.blastfurnace.otr.service.model.SeriesDataWrapper;
+import com.blastfurnace.otr.service.model.EpisodeDataWrapper;
 
 @RestController
 @RequestMapping("/rest")
 public class EpisodeDataRestController {
 
 	@Autowired
-	private EpisodeDataAdapter seriesAdapter;
+	private EpisodeDataAdapter episodeAdapter;
 
     @RequestMapping(value = "/get/{id:[\\d]+}", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<GenericRestResponse<SeriesDataWrapper>>  get(@PathVariable long  id) {
-    	GenericRestResponse<SeriesDataWrapper> g = seriesAdapter.get(id);
-    	ResponseEntity<GenericRestResponse<SeriesDataWrapper>> response = new ResponseEntity<GenericRestResponse<SeriesDataWrapper>>(g, HttpStatus.OK);
+    public ResponseEntity<GenericRestResponse<EpisodeDataWrapper>>  get(@PathVariable long  id) {
+    	GenericRestResponse<EpisodeDataWrapper> g = episodeAdapter.get(id);
+    	ResponseEntity<GenericRestResponse<EpisodeDataWrapper>> response = new ResponseEntity<GenericRestResponse<EpisodeDataWrapper>>(g, HttpStatus.OK);
     	return response;
     }
 
@@ -40,7 +40,7 @@ public class EpisodeDataRestController {
 
     	QueryData qry = new QueryData(queryParameters);
     	qry.setSort("title");
-    	GenericRestResponse<List<Map<String,Object>>> g = seriesAdapter.query(qry);
+    	GenericRestResponse<List<Map<String,Object>>> g = episodeAdapter.query(qry);
     	List<GenericRestResponse<List<Map<String, Object>>>> list = new ArrayList<GenericRestResponse<List<Map<String, Object>>>>();
     	list.add(g);
     	ResponseEntity<List<GenericRestResponse<List<Map<String, Object>>>>> response = new ResponseEntity<List<GenericRestResponse<List<Map<String, Object>>>>>(list, HttpStatus.OK);
@@ -52,7 +52,7 @@ public class EpisodeDataRestController {
     @ResponseBody
     public ResponseEntity<GenericRestResponse<String>> delete(@PathVariable long  id) {
     	
-    	GenericRestResponse<String> g = seriesAdapter.delete(id);
+    	GenericRestResponse<String> g = episodeAdapter.delete(id);
     	ResponseEntity<GenericRestResponse<String>> response = new ResponseEntity<GenericRestResponse<String>>(g, HttpStatus.OK);
 
     	return response;
@@ -62,15 +62,15 @@ public class EpisodeDataRestController {
     @ResponseBody
     public ResponseEntity<GenericRestResponse<Long>> getResultsCount(@RequestParam Map<String, String> queryParameters) {
     	 QueryData qry = new QueryData(queryParameters);
-    	 GenericRestResponse<Long> g = seriesAdapter.getResultsCount(qry);
+    	 GenericRestResponse<Long> g = episodeAdapter.getResultsCount(qry);
     	return new ResponseEntity<GenericRestResponse<Long>>(g, HttpStatus.OK);
     }
     
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<GenericRestResponse<SeriesDataWrapper>> save(SeriesDataWrapper series) {
-    	GenericRestResponse<SeriesDataWrapper> g = seriesAdapter.save(series);
-    	ResponseEntity<GenericRestResponse<SeriesDataWrapper>> response = new ResponseEntity<GenericRestResponse<SeriesDataWrapper>>(g, HttpStatus.OK);
+    public ResponseEntity<GenericRestResponse<EpisodeDataWrapper>> save(EpisodeDataWrapper episode) {
+    	GenericRestResponse<EpisodeDataWrapper> g = episodeAdapter.save(episode);
+    	ResponseEntity<GenericRestResponse<EpisodeDataWrapper>> response = new ResponseEntity<GenericRestResponse<EpisodeDataWrapper>>(g, HttpStatus.OK);
     	return response;
     }
 

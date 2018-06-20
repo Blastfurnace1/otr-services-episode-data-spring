@@ -7,33 +7,33 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.blastfurnace.otr.model.Series;
+import com.blastfurnace.otr.model.Episode;
 import com.blastfurnace.otr.reflection.ObjectData;
 import com.blastfurnace.otr.reflection.Utils;
 import com.blastfurnace.otr.rest.request.QueryData;
 import com.blastfurnace.otr.rest.response.GenericRestResponse;
-import com.blastfurnace.otr.service.SeriesService;
-import com.blastfurnace.otr.service.model.SeriesDataWrapper;
+import com.blastfurnace.otr.service.EpisodeService;
+import com.blastfurnace.otr.service.model.EpisodeDataWrapper;
 
 
-@Component("SeriesDataAdapter")
+@Component("EpisodeDataAdapter")
 public class EpisodeDataAdapterImpl implements EpisodeDataAdapter {
 
 	@Autowired
-	private SeriesService service;
+	private EpisodeService service;
 
 
 	/* (non-Javadoc)
-	 * @see com.blastfurnace.otr.rest.adapter.SeriesDataAdapter#get(java.lang.Long)
+	 * @see com.blastfurnace.otr.rest.adapter.EpisodeDataAdapter#get(java.lang.Long)
 	 */
 	@Override
-	public GenericRestResponse<SeriesDataWrapper> get(Long id) {
-		GenericRestResponse<SeriesDataWrapper> response = new GenericRestResponse<SeriesDataWrapper>(null);
+	public GenericRestResponse<EpisodeDataWrapper> get(Long id) {
+		GenericRestResponse<EpisodeDataWrapper> response = new GenericRestResponse<EpisodeDataWrapper>(null);
 		try {
-			SeriesDataWrapper series = service.get(id);
-			response.setPayload(series);
+			EpisodeDataWrapper episode = service.get(id);
+			response.setPayload(episode);
 
-			if (series == null) {
+			if (episode == null) {
 				response.setStatus(10l);
 				response.setMessage("No Results found");
 			}
@@ -50,7 +50,7 @@ public class EpisodeDataAdapterImpl implements EpisodeDataAdapter {
 
 
 	/* (non-Javadoc)
-	 * @see com.blastfurnace.otr.rest.adapter.SeriesDataAdapter#query(com.blastfurnace.otr.rest.request.QueryData)
+	 * @see com.blastfurnace.otr.rest.adapter.EpisodeDataAdapter#query(com.blastfurnace.otr.rest.request.QueryData)
 	 */
 	@Override
 	public GenericRestResponse<List<Map<String,Object>>> query(QueryData qry) {
@@ -59,17 +59,17 @@ public class EpisodeDataAdapterImpl implements EpisodeDataAdapter {
 		try {
 			String[] columns = Utils.getFields(qry);
 
-			Iterable<Series> props = service.query(qry);
+			Iterable<Episode> props = service.query(qry);
 
 			if (props == null) {
 				response.setStatus(10l);
 				response.setMessage("No Results found");
 			} else {
-				for (Series afp : props) {
-					ObjectData<Series> obj = new ObjectData<Series>(afp);
+				for (Episode afp : props) {
+					ObjectData<Episode> obj = new ObjectData<Episode>(afp);
 					Map<String,Object> map = null;
 					try {
-						map = obj.addValues(columns, Series.fieldDefinitions);
+						map = obj.addValues(columns, Episode.fieldDefinitions);
 					} catch (Exception  e) {
 						response.setErrorOccured(true);
 						response.addError(e.getMessage());
@@ -98,7 +98,7 @@ public class EpisodeDataAdapterImpl implements EpisodeDataAdapter {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.blastfurnace.otr.rest.adapter.SeriesDataAdapter#getResultsCount(com.blastfurnace.otr.rest.request.QueryData)
+	 * @see com.blastfurnace.otr.rest.adapter.EpisodeDataAdapter#getResultsCount(com.blastfurnace.otr.rest.request.QueryData)
 	 */
 	@Override
 	public GenericRestResponse<Long> getResultsCount(QueryData qry) {
@@ -123,7 +123,7 @@ public class EpisodeDataAdapterImpl implements EpisodeDataAdapter {
 
 
 	/* (non-Javadoc)
-	 * @see com.blastfurnace.otr.rest.adapter.SeriesDataAdapter#delete(java.lang.Long)
+	 * @see com.blastfurnace.otr.rest.adapter.EpisodeDataAdapter#delete(java.lang.Long)
 	 */
 	@Override
 	public GenericRestResponse<String> delete(Long  id) {
@@ -142,15 +142,15 @@ public class EpisodeDataAdapterImpl implements EpisodeDataAdapter {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.blastfurnace.otr.rest.adapter.SeriesDataAdapter#save(com.blastfurnace.otr.model.Series)
+	 * @see com.blastfurnace.otr.rest.adapter.EpisodeDataAdapter#save(com.blastfurnace.otr.model.Episode)
 	 */
 	@Override
-	public GenericRestResponse<SeriesDataWrapper> save(SeriesDataWrapper series) {
-		GenericRestResponse<SeriesDataWrapper> response = new GenericRestResponse<SeriesDataWrapper>(null);
+	public GenericRestResponse<EpisodeDataWrapper> save(EpisodeDataWrapper episode) {
+		GenericRestResponse<EpisodeDataWrapper> response = new GenericRestResponse<EpisodeDataWrapper>(null);
 		try {
-			SeriesDataWrapper newSeries = service.save(series);
-			response.setPayload(newSeries);
-			if (series == null) {
+			EpisodeDataWrapper newEpisode = service.save(episode);
+			response.setPayload(newEpisode);
+			if (episode == null) {
 				response.setStatus(-50l);
 				response.setMessage("Unable to save Record");
 			}

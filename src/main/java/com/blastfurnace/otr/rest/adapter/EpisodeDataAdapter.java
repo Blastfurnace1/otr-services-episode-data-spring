@@ -5,11 +5,11 @@ import java.util.Map;
 
 import com.blastfurnace.otr.rest.request.QueryData;
 import com.blastfurnace.otr.rest.response.GenericRestResponse;
-import com.blastfurnace.otr.service.model.SeriesDataWrapper;
+import com.blastfurnace.otr.service.model.EpisodeDataWrapper;
 
 public interface EpisodeDataAdapter {
 
-	GenericRestResponse<SeriesDataWrapper> get(Long id);
+	GenericRestResponse<EpisodeDataWrapper> get(Long id);
 
 	GenericRestResponse<List<Map<String, Object>>> query(QueryData qry);
 
@@ -17,6 +17,6 @@ public interface EpisodeDataAdapter {
 
 	GenericRestResponse<String> delete(Long id);
 
-	GenericRestResponse<SeriesDataWrapper> save(SeriesDataWrapper series);
+	GenericRestResponse<EpisodeDataWrapper> save(EpisodeDataWrapper episode);
 
 }

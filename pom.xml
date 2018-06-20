@@ -49,7 +49,7 @@
         		<management.server.port.addr>9001</management.server.port.addr>
         		<management.server.address.ip>127.0.0.1</management.server.address.ip>
 				<log.path>C:/temp/</log.path>
-				<log.file>SeriesData.log</log.file>
+				<log.file>EpisodeData.log</log.file>
             	<datasource.url>jdbc:mysql://localhost:3306/otr_mp3</datasource.url>
 				<datasource.username>otr</datasource.username>
 				<datasource.password>otr</datasource.password>
@@ -88,6 +88,31 @@
         			</resource>
     			</resources>
         		<plugins>
+        		<plugin>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>2.7</version>
+            <executions>
+                <execution>
+                    <id>copy-resource-one</id>
+                    <phase>validate</phase>
+                    <goals>
+                        <goal>copy-resources</goal>
+                    </goals>
+
+                    <configuration>
+                        <outputDirectory>C:/workspace/otr-services-episode-data-spring/src/main/webapp/WEB-INF/lib</outputDirectory>
+                        <resources>
+                            <resource>
+                                <directory>C:/workspace/otr-data-services-spring/target</directory>
+                                <includes>
+                                    <include>otr-audio-data.jar</include>
+                                </includes>
+                            </resource>
+                        </resources>
+                    </configuration>
+                </execution>
+           </executions>
+        </plugin>
             		<plugin>
                 		<groupId>org.springframework.boot</groupId>
                 		<artifactId>spring-boot-maven-plugin</artifactId>
@@ -177,7 +202,7 @@
                     </goals>
 
                     <configuration>
-                        <outputDirectory>C:/workspace/otr-services-audio-data-spring2/src/main/webapp/WEB-INF/lib</outputDirectory>
+                        <outputDirectory>C:/workspace/otr-services-episode-data-spring/src/main/webapp/WEB-INF/lib</outputDirectory>
                         <resources>
                             <resource>
                                 <directory>C:/workspace/otr-data-services-spring/target</directory>
@@ -205,7 +230,7 @@
           					<skipTests>true</skipTests>
           					<layout>WAR</layout>
 							<executable>true</executable>
-							<mainClass>com.blastfurnace.otr.SeriesDataApplication</mainClass>
+							<mainClass>com.blastfurnace.otr.EpisodeDataApplication</mainClass>
         				</configuration>
         				<executions>
 					<execution>
