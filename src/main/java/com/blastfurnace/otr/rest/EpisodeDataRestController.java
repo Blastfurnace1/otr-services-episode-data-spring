@@ -14,17 +14,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.blastfurnace.otr.rest.adapter.SeriesDataAdapter;
+import com.blastfurnace.otr.rest.adapter.EpisodeDataAdapter;
 import com.blastfurnace.otr.rest.request.QueryData;
 import com.blastfurnace.otr.rest.response.GenericRestResponse;
 import com.blastfurnace.otr.service.model.SeriesDataWrapper;
 
 @RestController
 @RequestMapping("/rest")
-public class SeriesDataRestController {
+public class EpisodeDataRestController {
 
 	@Autowired
-	private SeriesDataAdapter seriesAdapter;
+	private EpisodeDataAdapter seriesAdapter;
 
     @RequestMapping(value = "/get/{id:[\\d]+}", method = RequestMethod.GET)
     @ResponseBody

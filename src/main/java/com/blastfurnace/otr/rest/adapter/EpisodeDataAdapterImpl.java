@@ -17,7 +17,7 @@ import com.blastfurnace.otr.service.model.SeriesDataWrapper;
 
 
 @Component("SeriesDataAdapter")
-public class SeriesDataAdapterImpl implements SeriesDataAdapter {
+public class EpisodeDataAdapterImpl implements EpisodeDataAdapter {
 
 	@Autowired
 	private SeriesService service;

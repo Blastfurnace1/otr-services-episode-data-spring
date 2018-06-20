@@ -7,7 +7,7 @@ import com.blastfurnace.otr.rest.request.QueryData;
 import com.blastfurnace.otr.rest.response.GenericRestResponse;
 import com.blastfurnace.otr.service.model.SeriesDataWrapper;
 
-public interface SeriesDataAdapter {
+public interface EpisodeDataAdapter {
 
 	GenericRestResponse<SeriesDataWrapper> get(Long id);
 

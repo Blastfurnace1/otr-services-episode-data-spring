@@ -12,13 +12,13 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 @ServletComponentScan
 @SpringBootApplication
 @EnableAutoConfiguration
-public class SeriesDataApplication extends SpringBootServletInitializer {
+public class EpisodeDataApplication extends SpringBootServletInitializer {
 
-	private static final Logger log = LoggerFactory.getLogger(SeriesDataApplication.class);
+	private static final Logger log = LoggerFactory.getLogger(EpisodeDataApplication.class);
 	
 	public static void main(String[] args) {
 		log.warn("Starting App");
-		SpringApplication.run(SeriesDataApplication.class, args);
+		SpringApplication.run(EpisodeDataApplication.class, args);
 	}
 
 }
