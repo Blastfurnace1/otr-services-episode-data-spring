@@ -47,6 +47,29 @@ public class EpisodeDataAdapterImpl implements EpisodeDataAdapter {
 
 		return response;
 	}
+	
+	
+	@Override
+	public GenericRestResponse<List<EpisodeDataWrapper>> getSeriesEpisodes(Long seriesId) {
+		GenericRestResponse<List<EpisodeDataWrapper>> response = new GenericRestResponse<List<EpisodeDataWrapper>>(null);
+		try {
+			List<EpisodeDataWrapper> episode = service.getSeriesEpisodes(seriesId);
+			response.setPayload(episode);
+
+			if (episode == null) {
+				response.setStatus(10l);
+				response.setMessage("No Results found");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.setStatus(-10l);
+			response.setMessage("An Error Occurred - unable to get a result");
+			response.setErrorOccured(true);
+			response.addError(e.getMessage());
+		}
+
+		return response;
+	}
 
 
 	/* (non-Javadoc)

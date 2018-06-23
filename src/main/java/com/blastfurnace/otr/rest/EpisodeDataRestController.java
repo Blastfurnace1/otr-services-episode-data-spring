@@ -34,6 +34,14 @@ public class EpisodeDataRestController {
     	return response;
     }
 
+    @RequestMapping(value = "/series/episodes/{seriesId:[\\d]+}", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<GenericRestResponse<List<EpisodeDataWrapper>>>  getSeriesEpisodes(@PathVariable long seriesId) {
+    	GenericRestResponse<List<EpisodeDataWrapper>> g = episodeAdapter.getSeriesEpisodes(seriesId);
+    	ResponseEntity<GenericRestResponse<List<EpisodeDataWrapper>>> response = new ResponseEntity<GenericRestResponse<List<EpisodeDataWrapper>>>(g, HttpStatus.OK);
+    	return response;
+    }
+
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<GenericRestResponse<List<Map<String, Object>>>>> query(@RequestParam Map<String, String> queryParameters) {

@@ -10,6 +10,8 @@ import com.blastfurnace.otr.service.model.EpisodeDataWrapper;
 public interface EpisodeDataAdapter {
 
 	GenericRestResponse<EpisodeDataWrapper> get(Long id);
+	
+	GenericRestResponse<List<EpisodeDataWrapper>> getSeriesEpisodes(Long seriesId);
 
 	GenericRestResponse<List<Map<String, Object>>> query(QueryData qry);
 
