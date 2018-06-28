@@ -1,14 +1,13 @@
-package com.blastfurnace.otr.rest.service;
+package com.blastfurnace.otr.episode.adapter;
 
 import java.util.List;
 import java.util.Map;
 
 import com.blastfurnace.otr.data.episode.service.model.EpisodeDataWrapper;
 import com.blastfurnace.otr.rest.request.QueryData;
-import com.blastfurnace.otr.service.payload.PayloadWithCount;
 import com.blastfurnace.otr.service.response.GenericResponse;
 
-public interface EpisodeDataService {
+public interface EpisodeDataAdapter {
 
 	GenericResponse<EpisodeDataWrapper> get(Long id);
 	
@@ -21,7 +20,5 @@ public interface EpisodeDataService {
 	GenericResponse<String> delete(Long id);
 
 	GenericResponse<EpisodeDataWrapper> save(EpisodeDataWrapper episode);
-
-	GenericResponse<PayloadWithCount<List<Map<String, Object>>>> queryWithCount(QueryData qry);
 
 }

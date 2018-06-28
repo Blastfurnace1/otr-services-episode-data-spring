@@ -230,7 +230,7 @@
           					<skipTests>true</skipTests>
           					<layout>WAR</layout>
 							<executable>true</executable>
-							<mainClass>com.blastfurnace.otr.EpisodeDataApplication</mainClass>
+							<mainClass>com.blastfurnace.otr.Application</mainClass>
         				</configuration>
         				<executions>
 					<execution>
