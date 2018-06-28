@@ -31,7 +31,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.blastfurnace.otr.service.model.SeriesDataWrapper;
+import com.blastfurnace.otr.data.episode.service.model.EpisodeDataWrapper;
 
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.junit.Assert.assertTrue;
@@ -81,8 +81,8 @@ public class EpisodeDataApplicationTests {
 		assertTrue(httpHeaders.getContentType()
 				  .includes(MediaType.APPLICATION_JSON));
 		
-		SeriesDataWrapper series = this.testRestTemplate.getForObject(
-				"http://localhost:" + this.port + "/rest/get/1", SeriesDataWrapper.class);
+		EpisodeDataWrapper series = this.testRestTemplate.getForObject(
+				"http://localhost:" + this.port + "/rest/get/1", EpisodeDataWrapper.class);
 
 	}
 	
