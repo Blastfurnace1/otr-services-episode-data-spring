@@ -25,7 +25,14 @@
     		<artifactId>otr-data-services</artifactId>
     		<version>1.0</version>
     		<scope>system</scope>
-    		<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/otr-audio-data.jar</systemPath>
+    		<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/otr-episode-data.jar</systemPath>
+		</dependency>
+		<dependency>
+    		<groupId>com.blastfurnace</groupId>
+    		<artifactId>otr-utilities</artifactId>
+    		<version>1.0</version>
+    		<scope>system</scope>
+    		<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/otr-utils.jar</systemPath>
 		</dependency>
     </dependencies>
 
@@ -100,12 +107,37 @@
                     </goals>
 
                     <configuration>
-                        <outputDirectory>C:/workspace/otr-services-episode-data-spring/src/main/webapp/WEB-INF/lib</outputDirectory>
+                        <outputDirectory>${project.basedir}/src/main/webapp/WEB-INF/lib</outputDirectory>
                         <resources>
                             <resource>
-                                <directory>C:/workspace/otr-data-services-spring/target</directory>
+                                <directory>C:/workspace/otr-episode-data-spring/target</directory>
                                 <includes>
-                                    <include>otr-audio-data.jar</include>
+                                    <include>otr-episode-data.jar</include>
+                                </includes>
+                            </resource>
+                        </resources>
+                    </configuration>
+                </execution>
+           </executions>
+        </plugin>
+        <plugin>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>2.7</version>
+            <executions>
+                <execution>
+                    <id>copy-resource-one</id>
+                    <phase>validate</phase>
+                    <goals>
+                        <goal>copy-resources</goal>
+                    </goals>
+
+                    <configuration>
+                        <outputDirectory>${project.basedir}/src/main/webapp/WEB-INF/lib</outputDirectory>
+                        <resources>
+                            <resource>
+                                <directory>C:/workspace/otr-utiliies/target</directory>
+                                <includes>
+                                    <include>otr-utils.jar</include>
                                 </includes>
                             </resource>
                         </resources>
@@ -202,12 +234,37 @@
                     </goals>
 
                     <configuration>
-                        <outputDirectory>C:/workspace/otr-services-episode-data-spring/src/main/webapp/WEB-INF/lib</outputDirectory>
+                        <outputDirectory>${project.basedir}/src/main/webapp/WEB-INF/lib</outputDirectory>
                         <resources>
                             <resource>
-                                <directory>C:/workspace/otr-data-services-spring/target</directory>
+                                <directory>C:/workspace/otr-episode-data-spring/target</directory>
                                 <includes>
-                                    <include>otr-audio-data.jar</include>
+                                    <include>otr-episode-data.jar</include>
+                                </includes>
+                            </resource>
+                        </resources>
+                    </configuration>
+                </execution>
+           </executions>
+        </plugin>
+        <plugin>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>2.7</version>
+            <executions>
+                <execution>
+                    <id>copy-resource-one</id>
+                    <phase>validate</phase>
+                    <goals>
+                        <goal>copy-resources</goal>
+                    </goals>
+
+                    <configuration>
+                        <outputDirectory>${project.basedir}/src/main/webapp/WEB-INF/lib</outputDirectory>
+                        <resources>
+                            <resource>
+                                <directory>C:/workspace/otr-utiliies/target</directory>
+                                <includes>
+                                    <include>otr-utils.jar</include>
                                 </includes>
                             </resource>
                         </resources>
