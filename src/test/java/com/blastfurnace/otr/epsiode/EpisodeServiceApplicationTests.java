@@ -44,7 +44,7 @@ import static org.junit.Assert.assertTrue;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=9001", "test.server="})
-public class EpisodeDataApplicationTests {
+public class EpisodeServiceApplicationTests {
 
 	@LocalServerPort
 	private int port;
