@@ -42,6 +42,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <const.megabyte>1048576</const.megabyte>
+        <utilities.project.dir>C:/workspace/otr-utiliies</utilities.project.dir>
+        <episode.project.dir>C:/workspace/otr-episode-data-spring</episode.project.dir>
     </properties>
     
     <profiles>
@@ -55,8 +57,7 @@
              	<server.port.addr>9000</server.port.addr>
         		<management.server.port.addr>9001</management.server.port.addr>
         		<management.server.address.ip>127.0.0.1</management.server.address.ip>
-				<log.path>C:/temp/</log.path>
-				<log.file>EpisodeService.log</log.file>
+				<log.file>${project.basedir}/log/EpisodeService.log</log.file>
             	<datasource.url>jdbc:mysql://localhost:3306/otr_mp3</datasource.url>
 				<datasource.username>otr</datasource.username>
 				<datasource.password>otr</datasource.password>
@@ -110,7 +111,7 @@
                         <outputDirectory>${project.basedir}/src/main/webapp/WEB-INF/lib</outputDirectory>
                         <resources>
                             <resource>
-                                <directory>C:/workspace/otr-episode-data-spring/target</directory>
+                                <directory>${episode.project.dir}/target</directory>
                                 <includes>
                                     <include>otr-episode-data.jar</include>
                                 </includes>
@@ -135,7 +136,7 @@
                         <outputDirectory>${project.basedir}/src/main/webapp/WEB-INF/lib</outputDirectory>
                         <resources>
                             <resource>
-                                <directory>C:/workspace/otr-utiliies/target</directory>
+                                <directory>${utilities.project.dir}/target</directory>
                                 <includes>
                                     <include>otr-utils.jar</include>
                                 </includes>
@@ -237,7 +238,7 @@
                         <outputDirectory>${project.basedir}/src/main/webapp/WEB-INF/lib</outputDirectory>
                         <resources>
                             <resource>
-                                <directory>C:/workspace/otr-episode-data-spring/target</directory>
+                                <directory>${episode.project.dir}/target</directory>
                                 <includes>
                                     <include>otr-episode-data.jar</include>
                                 </includes>
@@ -262,7 +263,7 @@
                         <outputDirectory>${project.basedir}/src/main/webapp/WEB-INF/lib</outputDirectory>
                         <resources>
                             <resource>
-                                <directory>C:/workspace/otr-utiliies/target</directory>
+                                <directory>${utilities.project.dir}/target</directory>
                                 <includes>
                                     <include>otr-utils.jar</include>
                                 </includes>
