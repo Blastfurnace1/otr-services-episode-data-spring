@@ -42,7 +42,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <const.megabyte>1048576</const.megabyte>
-        <utilities.project.dir>C:/workspace/otr-utiliies</utilities.project.dir>
+        <utilities.project.dir>C:/workspace/otr-utils</utilities.project.dir>
         <episode.project.dir>C:/workspace/otr-episode-data-spring</episode.project.dir>
     </properties>
     
