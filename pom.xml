@@ -13,6 +13,17 @@
         <version>2.0.2.RELEASE</version>
     </parent>
 
+	<repositories>
+    	<repository>
+    		<id>blastfurnace</id>
+    		<url>http://localhost:8081/artifactory/libs-release-local</url>
+    		<snapshots>
+        		<enabled>true</enabled>
+        		<updatePolicy>never</updatePolicy>
+    		</snapshots>
+		</repository>
+    </repositories>
+    
     <dependencies>
         <dependency>
 			<groupId>org.projectlombok</groupId>
@@ -22,17 +33,13 @@
 		</dependency>
 		<dependency>
     		<groupId>com.blastfurnace</groupId>
-    		<artifactId>otr-data-services</artifactId>
-    		<version>1.0</version>
-    		<scope>system</scope>
-    		<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/otr-episode-data.jar</systemPath>
+    		<artifactId>otr-episode-data</artifactId>
+    		<version>0.1.0</version>
 		</dependency>
 		<dependency>
     		<groupId>com.blastfurnace</groupId>
-    		<artifactId>otr-utilities</artifactId>
-    		<version>1.0</version>
-    		<scope>system</scope>
-    		<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/otr-utils.jar</systemPath>
+    		<artifactId>otr-utils</artifactId>
+    		<version>0.1.0</version>
 		</dependency>
     </dependencies>
 
@@ -43,21 +50,22 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <const.megabyte>1048576</const.megabyte>
         <utilities.project.dir>C:/workspace/otr-utils</utilities.project.dir>
-        <episode.project.dir>C:/workspace/otr-episode-data-spring</episode.project.dir>
     </properties>
+    
+   
     
     <profiles>
     	<profile>
     		<id>dev</id>
     		<activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
             	<activatedProperties>dev</activatedProperties>
              	<server.port.addr>9000</server.port.addr>
         		<management.server.port.addr>9001</management.server.port.addr>
         		<management.server.address.ip>127.0.0.1</management.server.address.ip>
-				<log.file>${project.basedir}/log/EpisodeService.log</log.file>
+				<log.file>${project.basedir}/log/EpisodeData.log</log.file>
             	<datasource.url>jdbc:mysql://localhost:3306/otr_mp3</datasource.url>
 				<datasource.username>otr</datasource.username>
 				<datasource.password>otr</datasource.password>
@@ -96,51 +104,7 @@
         			</resource>
     			</resources>
         		<plugins>
-        		<plugin>
-            <artifactId>maven-resources-plugin</artifactId>
-            <version>2.7</version>
-            <executions>
-                <execution>
-                    <id>copy-resource-one</id>
-                    <phase>validate</phase>
-                    <goals>
-                        <goal>copy-resources</goal>
-                    </goals>
-
-                    <configuration>
-                        <outputDirectory>${project.basedir}/src/main/webapp/WEB-INF/lib</outputDirectory>
-                        <resources>
-                            <resource>
-                                <directory>${episode.project.dir}/target</directory>
-                                <includes>
-                                    <include>otr-episode-data.jar</include>
-                                </includes>
-                            </resource>
-                        </resources>
-                    </configuration>
-                </execution>
-          
-                <execution>
-                    <id>copy-resource-two</id>
-                    <phase>validate</phase>
-                    <goals>
-                        <goal>copy-resources</goal>
-                    </goals>
-
-                    <configuration>
-                        <outputDirectory>${project.basedir}/src/main/webapp/WEB-INF/lib</outputDirectory>
-                        <resources>
-                            <resource>
-                                <directory>${utilities.project.dir}/target</directory>
-                                <includes>
-                                    <include>otr-utils.jar</include>
-                                </includes>
-                            </resource>
-                        </resources>
-                    </configuration>
-                </execution>
-           </executions>
-        </plugin>
+        			
             		<plugin>
                 		<groupId>org.springframework.boot</groupId>
                 		<artifactId>spring-boot-maven-plugin</artifactId>
@@ -151,10 +115,10 @@
     	<profile>
     		<id>release</id>
     		<activation>
-                <activeByDefault>false</activeByDefault>
+                <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-            	<packaging>war</packaging>
+            	<packaging>jar</packaging>
             	<maven.test.skip>true</maven.test.skip>
             	<deploy.dir>C:/wildfly-12.0.0.Final/standalone/deployments/</deploy.dir>
             	<activatedProperties>release</activatedProperties>
@@ -210,84 +174,30 @@
 		    </dependencies>
 		    
             <build>
-            	<finalName>${project.name}</finalName>
-    			<resources>
-        			<resource>
-            			<directory>src/main/release</directory>
-            			<filtering>true</filtering>
-        			</resource>
-    			</resources>
-        		<plugins>
-        		 <plugin>
-            <artifactId>maven-resources-plugin</artifactId>
-            <version>2.7</version>
-            <executions>
-                <execution>
-                    <id>copy-resource-one</id>
-                    <phase>validate</phase>
-                    <goals>
-                        <goal>copy-resources</goal>
-                    </goals>
+            	
+    			<plugins>
+    			
+        		<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+				  <!-- DO NOT include log4j.properties file in your Jar -->
+				  <excludes>
+					<exclude>**/test/*</exclude>
+					<exclude>**com/blastfurnace/otr/Application.class*</exclude>
+					<exclude>**/resources/*</exclude>
+					<exclude>**/lib/*</exclude>
+					<exclude>**application.properties*</exclude>
+				  </excludes>
+				  <archive>
+					<manifest>
+						<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+              			<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+					</manifest>
+				  </archive>
+				</configuration>
+			</plugin>
 
-                    <configuration>
-                        <outputDirectory>${project.basedir}/src/main/webapp/WEB-INF/lib</outputDirectory>
-                        <resources>
-                            <resource>
-                                <directory>${episode.project.dir}/target</directory>
-                                <includes>
-                                    <include>otr-episode-data.jar</include>
-                                </includes>
-                            </resource>
-                        </resources>
-                    </configuration>
-                </execution>
-         
-                <execution>
-                    <id>copy-resource-two</id>
-                    <phase>validate</phase>
-                    <goals>
-                        <goal>copy-resources</goal>
-                    </goals>
-
-                    <configuration>
-                        <outputDirectory>${project.basedir}/src/main/webapp/WEB-INF/lib</outputDirectory>
-                        <resources>
-                            <resource>
-                                <directory>${utilities.project.dir}/target</directory>
-                                <includes>
-                                    <include>otr-utils.jar</include>
-                                </includes>
-                            </resource>
-                        </resources>
-                    </configuration>
-                </execution>
-           </executions>
-        </plugin>
-        			<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-war-plugin</artifactId>
-						<configuration>
-							<outputDirectory>C:\wildfly-12.0.0.Final\standalone\deployments\</outputDirectory>
-         					<failOnMissingWebXml>false</failOnMissingWebXml>
-						</configuration>
-					</plugin>
-            		<plugin>
-                		<groupId>org.springframework.boot</groupId>
-                		<artifactId>spring-boot-maven-plugin</artifactId>
-                		<configuration>
-          					<skipTests>true</skipTests>
-          					<layout>WAR</layout>
-							<executable>true</executable>
-							<mainClass>com.blastfurnace.otr.Application</mainClass>
-        				</configuration>
-        				<executions>
-					<execution>
-						<goals>
-							<goal>repackage</goal>
-						</goals>
-					</execution>
-</executions>
-            		</plugin>
         		</plugins>
     		</build>
     	</profile>
