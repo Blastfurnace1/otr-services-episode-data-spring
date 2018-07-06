@@ -4,24 +4,24 @@ import java.util.List;
 import java.util.Map;
 
 import com.blastfurnace.otr.data.episode.service.model.EpisodeDataWrapper;
-import com.blastfurnace.otr.rest.request.QueryData;
 import com.blastfurnace.otr.service.payload.PayloadWithCount;
-import com.blastfurnace.otr.service.response.GenericResponse;
+import com.blastfurnace.otr.service.request.QueryData;
+import com.blastfurnace.otr.service.response.GenericServiceResponse;
 
 public interface EpisodeDataService {
 
-	GenericResponse<EpisodeDataWrapper> get(Long id);
+	GenericServiceResponse<EpisodeDataWrapper> get(Long id);
 	
-	GenericResponse<List<EpisodeDataWrapper>> getSeriesEpisodes(Long seriesId);
+	GenericServiceResponse<List<EpisodeDataWrapper>> getSeriesEpisodes(Long seriesId);
 
-	GenericResponse<List<Map<String, Object>>> query(QueryData qry);
+	GenericServiceResponse<List<Map<String, Object>>> query(QueryData qry);
 
-	GenericResponse<Long> getResultsCount(QueryData qry);
+	GenericServiceResponse<Long> getResultsCount(QueryData qry);
 
-	GenericResponse<String> delete(Long id);
+	GenericServiceResponse<String> delete(Long id);
 
-	GenericResponse<EpisodeDataWrapper> save(EpisodeDataWrapper episode);
+	GenericServiceResponse<EpisodeDataWrapper> save(EpisodeDataWrapper episode);
 
-	GenericResponse<PayloadWithCount<List<Map<String, Object>>>> queryWithCount(QueryData qry);
+	GenericServiceResponse<PayloadWithCount<List<Map<String, Object>>>> queryWithCount(QueryData qry);
 
 }

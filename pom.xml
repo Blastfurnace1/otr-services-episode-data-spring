@@ -5,13 +5,23 @@
 
     <groupId>com.blastfurnace</groupId>
     <artifactId>otr-services-episode-data</artifactId>
-    <version>0.1.0</version>
-
+    <packaging>jar</packaging>
+    <version>0.2.0</version>
+	<name>otr-utils</name>
+	<url>http://localhost:8081/artifactory/libs-release-local</url>
+	
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.0.2.RELEASE</version>
     </parent>
+
+ 	<distributionManagement>
+    	<repository>
+    		<id>blastfurnace</id>
+    		<url>http://10.0.0.134:8085/artifactory/libs-release-local</url>
+		</repository>
+    </distributionManagement>
 
 	<repositories>
     	<repository>
@@ -34,12 +44,28 @@
 		<dependency>
     		<groupId>com.blastfurnace</groupId>
     		<artifactId>otr-episode-data</artifactId>
-    		<version>0.1.0</version>
+    		<version>0.2.0</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.blastfurnace</groupId>
+    		<artifactId>otr-episode-data</artifactId>
+    		<version>0.2.0</version>
+    		<classifier>test</classifier>
+    		<type>test-jar</type>
+      		<scope>test</scope>
 		</dependency>
 		<dependency>
     		<groupId>com.blastfurnace</groupId>
     		<artifactId>otr-utils</artifactId>
-    		<version>0.1.0</version>
+    		<version>0.4.0</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.blastfurnace</groupId>
+    		<artifactId>otr-utils</artifactId>
+    		<version>0.4.0</version>
+    		<classifier>test</classifier>
+    		<type>test-jar</type>
+      		<scope>test</scope>
 		</dependency>
     </dependencies>
 
@@ -48,8 +74,8 @@
         <java.version>1.8</java.version>  
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <const.megabyte>1048576</const.megabyte>
-        <utilities.project.dir>C:/workspace/otr-utils</utilities.project.dir>
+        <app.version>@project.version@</app.version>
+        <service.ping.response.ok>STATUS OK</service.ping.response.ok>
     </properties>
     
    
@@ -99,12 +125,20 @@
             <build>
     			<resources>
         			<resource>
-            			<directory>src/main/resources</directory>
+            			<directory>src/test/resources</directory>
             			<filtering>true</filtering>
         			</resource>
     			</resources>
         		<plugins>
-        			
+        			<plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+            <dependenciesToScan>
+                <dependency>com.blastfurnace:otr-episode-data</dependency>
+            </dependenciesToScan>
+        </configuration>
+    </plugin>
             		<plugin>
                 		<groupId>org.springframework.boot</groupId>
                 		<artifactId>spring-boot-maven-plugin</artifactId>
@@ -119,7 +153,8 @@
             </activation>
             <properties>
             	<packaging>jar</packaging>
-            	<maven.test.skip>true</maven.test.skip>
+            	<maven.test.skip>false</maven.test.skip>
+            	<maven.test.skip.exec>true</maven.test.skip.exec>
             	<deploy.dir>C:/wildfly-12.0.0.Final/standalone/deployments/</deploy.dir>
             	<activatedProperties>release</activatedProperties>
 				<log.path>C:/wildfly-12.0.0.Final/standalone/log/</log.path>
@@ -150,12 +185,6 @@
 				<dependency>
            		 	<groupId>org.springframework.boot</groupId>
             		<artifactId>spring-boot-starter-test</artifactId>
-            		<exclusions>
-                    	<exclusion>
-                        	<groupId>org.apache.tomcat</groupId>
-                        	<artifactId>tomcat-jdbc</artifactId>
-                    	</exclusion>
-                	</exclusions>
             		<scope>test</scope>
         		</dependency>
 				
@@ -176,18 +205,29 @@
             <build>
             	
     			<plugins>
-    			
+    			<plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-resources-plugin</artifactId>
+	<version>2.7</version>
+	<configuration>
+		<delimiters>
+			<delimiter>@</delimiter>
+		</delimiters>
+		<useDefaultDelimiters>false</useDefaultDelimiters>
+	</configuration>
+</plugin>
         		<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
 				<configuration>
 				  <!-- DO NOT include log4j.properties file in your Jar -->
 				  <excludes>
-					<exclude>**/test/*</exclude>
 					<exclude>**com/blastfurnace/otr/Application.class*</exclude>
 					<exclude>**/resources/*</exclude>
 					<exclude>**/lib/*</exclude>
 					<exclude>**application.properties*</exclude>
+					<exclude>**pom.properties*</exclude>
+					<exclude>**pom.xml*</exclude>
 				  </excludes>
 				  <archive>
 					<manifest>
@@ -196,6 +236,18 @@
 					</manifest>
 				  </archive>
 				</configuration>
+				  <executions>
+				  <execution>
+				  	<id>Jar Tests Package</id>
+				  	<configuration>
+				  	<classifier>test</classifier>
+				  	</configuration>
+				  	<phase>package</phase>
+					<goals>
+						<goal>test-jar</goal>
+  					</goals>
+  					</execution>
+  					</executions>
 			</plugin>
 
         		</plugins>
